@@ -1,7 +1,7 @@
 {
 	"folders": {},
 	"connections": {
-		"oracle_thin-1925e302df0-4fcdf9a560751932": {
+		"oracle_thin-1927ac44fa7-4097a914a6e7196f": {
 			"provider": "oracle",
 			"driver": "oracle_thin",
 			"name": "ORCL",
