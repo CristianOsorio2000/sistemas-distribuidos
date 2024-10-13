@@ -30,3 +30,7 @@ data/Crime_Data_from_2020_to_Present_20240914.csv
 *.zip
 *.csv
 *.csv
+*.bak
+
+build
+tarjet
