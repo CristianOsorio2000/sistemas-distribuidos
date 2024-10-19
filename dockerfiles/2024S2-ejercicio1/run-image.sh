@@ -1,0 +1,1 @@
+docker run --rm cristian/ejercicio-docker-01

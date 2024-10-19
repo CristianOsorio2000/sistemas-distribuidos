@@ -1,0 +1,1 @@
+docker run --name=ejercicio-docker-2 -p 8080:80 -d cristian/ejercicio-docker-02

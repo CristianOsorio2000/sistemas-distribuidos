@@ -1,0 +1,1 @@
+docker build -t cristian/ejercicio-docker-03:latest .
