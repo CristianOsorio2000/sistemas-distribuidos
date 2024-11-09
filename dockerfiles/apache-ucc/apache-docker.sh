@@ -1,0 +1,1 @@
+docker run --rm --name apache-ucc -p 8090:80 -d cristian/apache-ucc
