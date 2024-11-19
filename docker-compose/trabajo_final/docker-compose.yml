@@ -1,0 +1,37 @@
+version: '3'
+services:
+  pg_ppal:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: db_ppal
+      POSTGRES_USER: postgres_ppal
+      POSTGRES_PASSWORD: postgres_ppal
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data_ppal:/var/lib/postgresql/data
+
+  pg_slave1:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: db_slave1
+      POSTGRES_USER: postgres_slave1
+      POSTGRES_PASSWORD: postgres_slave1
+    ports:
+      - "5433:5432"
+    volumes:
+      - pg_data_slave1:/var/lib/postgresql/data
+
+  cliente_ppal:
+    build: ./cliente_ppal
+    depends_on:
+      - pg_ppal
+
+  cliente_slave:
+    build: ./cliente_slave
+    depends_on:
+      - pg_slave1
+
+volumes:
+  pg_data_ppal:
+  pg_data_slave1:

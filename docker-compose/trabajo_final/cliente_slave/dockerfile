@@ -1,0 +1,5 @@
+FROM python:3.9-slim
+COPY cliente_slave.py /app/cliente_slave.py
+WORKDIR /app
+RUN pip install sqlalchemy pandas psycopg2-binary
+CMD ["python", "cliente_slave.py"]

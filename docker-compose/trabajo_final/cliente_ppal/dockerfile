@@ -1,0 +1,18 @@
+FROM gcc:latest
+
+# Instalar libpqxx y dependencias
+RUN apt-get update && apt-get install -y \
+    libpqxx-dev \
+    libpq-dev \
+    cmake \
+    make
+
+# Copiar el código fuente
+COPY cliente_ppal.cpp /app/cliente_ppal.cpp
+WORKDIR /app
+
+# Compilar el programa
+RUN g++ -o cliente_ppal cliente_ppal.cpp -lpqxx -lpq
+
+# Ejecutar el programa
+CMD ["./cliente_ppal"]
