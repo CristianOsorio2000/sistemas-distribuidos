@@ -32,6 +32,28 @@ services:
     depends_on:
       - pg_slave1
 
+  oracle:  # Servicio de Oracle
+    image: gvenzl/oracle-free:slim
+    environment:
+      - ORACLE_PASSWORD=oracle
+    ports:
+      - "1521:1521"
+
+  etl:  # Nuevo servicio para el script ETL
+    build: ./etl  # Ubicación del Dockerfile del ETL
+    depends_on:
+      - pg_ppal
+      - pg_slave1
+      - oracle
+    links:
+      - pg_ppal
+      - pg_slave1
+      - oracle
+    environment:
+      ORACLE_HOME: /opt/oracle  # Configuración de Oracle Instant Client
+    volumes:
+      - ./etl:/app  # Montar el código ETL en el contenedor
+
 volumes:
   pg_data_ppal:
   pg_data_slave1:

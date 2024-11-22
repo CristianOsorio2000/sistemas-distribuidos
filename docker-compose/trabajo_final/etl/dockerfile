@@ -1,0 +1,29 @@
+FROM python:3.9-slim
+
+# Instalar dependencias del sistema necesarias para cx_Oracle
+RUN apt-get update && apt-get install -y \
+    libaio1 wget unzip && \
+    apt-get clean
+
+# Descargar e instalar Oracle Instant Client
+RUN wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basiclite-linuxx64.zip && \
+    unzip instantclient-basiclite-linuxx64.zip && \
+    rm instantclient-basiclite-linuxx64.zip && \
+    mv instantclient* /opt/oracle && \
+    echo /opt/oracle > /etc/ld.so.conf.d/oracle.conf && \
+    ldconfig
+
+# Configurar variables de entorno necesarias para Oracle
+ENV LD_LIBRARY_PATH=/opt/oracle
+
+# Copiar los archivos del proyecto
+COPY etl.py /app/etl.py
+COPY datos1.csv /app/datos1.csv
+COPY datos2.csv /app/datos2.csv
+WORKDIR /app
+
+# Instalar las dependencias de Python
+RUN pip install cx_Oracle pandas sqlalchemy
+
+# Comando para ejecutar el script ETL
+CMD ["python", "etl.py"]

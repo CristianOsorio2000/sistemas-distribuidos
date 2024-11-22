@@ -3,14 +3,15 @@ from sqlalchemy import create_engine
 import cx_Oracle
 
 # Conexión a las bases de datos PostgreSQL
-engine_ppal = create_engine('postgresql://postgres_ppal:postgres_ppal@localhost:5432/db_ppal')
-engine_slave1 = create_engine('postgresql://postgres_slave1:postgres_slave1@localhost:5433/db_slave1')
+engine_ppal = create_engine('postgresql://postgres_ppal:postgres_ppal@pg_ppal:5432/db_ppal')
+engine_slave1 = create_engine('postgresql://postgres_slave1:postgres_slave1@pg_slave1:5433/db_slave1')
+
 
 # Conexión a Oracle Data Warehouse
 oracle_connection = cx_Oracle.connect(
     user="system",
     password="oracle",
-    dsn="localhost:1521/xe"
+    dsn="orcl:1521/freepdb1"
 )
 
 # Cargar datos de PostgreSQL a Oracle Data Warehouse
@@ -33,8 +34,8 @@ df_x.to_sql('tabla_x', engine_ppal, if_exists='replace')
 df_y.to_sql('tabla_y', engine_slave1, if_exists='replace')
 
 # Cargar datos a Oracle Data Warehouse
-load_to_oracle(df_x, 'TABLA_X')
-load_to_oracle(df_y, 'TABLA_Y')
+load_to_oracle(df_x, 'tabla_x')
+load_to_oracle(df_y, 'tabla_y')
 
 oracle_connection.close()
 
