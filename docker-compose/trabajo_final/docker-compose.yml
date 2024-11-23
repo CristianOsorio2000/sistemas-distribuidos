@@ -51,8 +51,9 @@ services:
       - oracle
     environment:
       ORACLE_HOME: /opt/oracle  # Configuración de Oracle Instant Client
+      LD_LIBRARY_PATH: /opt/oracle
     volumes:
-      - ./etl:/app  # Montar el código ETL en el contenedor
+      - /mnt/d/apps/instantclient-basic-linux.x64-23.6.0.24.10/instantclient_23_6:/opt/oracle  # Montar el código ETL en el contenedor
 
 volumes:
   pg_data_ppal:
